@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 
 
@@ -19,11 +21,11 @@ class Pessoa(models.Model):
 class Conta(models.Model):
     id_conta = models.AutoField(primary_key=True)
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
-    saldo = models.DecimalField(max_digits=12, decimal_places=2)
+    saldo = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal("0"))
     limite_saque_diario = models.DecimalField(max_digits=12, decimal_places=2)
-    flag_ativo = models.BooleanField()
-    tipo_conta = models.IntegerField()
-    data_criacao = models.DateTimeField()
+    flag_ativo = models.BooleanField(default=True)
+    tipo_conta = models.IntegerField(default=1)
+    data_criacao = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ('id_conta',)

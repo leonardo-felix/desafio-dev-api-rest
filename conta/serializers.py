@@ -17,6 +17,13 @@ class ContaSerializer(serializers.ModelSerializer):
         fields = ('idConta', 'idPessoa', 'saldo', 'limiteSaqueDiario', 'flagAtivo', 'tipoConta', 'dataCriacao')
 
 
+class CriarContaSerializer(ContaSerializer):
+    class Meta:
+        model = models.Conta
+        fields = ('idConta', 'idPessoa', 'saldo', 'limiteSaqueDiario', 'flagAtivo', 'tipoConta', 'dataCriacao')
+        read_only_fields = ('flagAtivo', 'saldo', 'dataCriacao')
+
+
 class TransacaoSerializer(serializers.ModelSerializer):
     idConta = serializers.PrimaryKeyRelatedField(source='conta', queryset=models.Conta.objects.all())
     idTransacao = serializers.IntegerField(source='id_transacao', read_only=True)
