@@ -55,6 +55,10 @@ class ConsultaSaldoAPIView(MixinAllowAny, generics.RetrieveAPIView):
 
 class BloqueioContaAPIView(MixinAllowAny, generics.UpdateAPIView):
     serializer_class = serializers.BloqueioContaSerializer
+    lookup_field = 'id_conta'
+
+    def get_queryset(self):
+        return models.Conta.objects.filter(id_conta__exact=self.kwargs.get('id_conta'))
 
 
 class ExtratoContaAPIView(MixinAllowAny, generics.ListAPIView):

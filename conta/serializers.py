@@ -18,10 +18,12 @@ class ContaSerializer(serializers.ModelSerializer):
 
 
 class CriarContaSerializer(ContaSerializer):
+    flagAtivo = serializers.BooleanField(default=True, read_only=True)
+    dataCriacao = serializers.DateTimeField(read_only=True)
+
     class Meta:
         model = models.Conta
         fields = ('idConta', 'idPessoa', 'saldo', 'limiteSaqueDiario', 'flagAtivo', 'tipoConta', 'dataCriacao')
-        read_only_fields = ('flagAtivo', 'saldo', 'dataCriacao')
 
 
 class TransacaoSerializer(serializers.ModelSerializer):
